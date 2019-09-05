@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -56,6 +57,13 @@ public class MovieFacade {
     public Movie getMovieById(Long id) {
         EntityManager em = emf.createEntityManager();
         return em.find(Movie.class, id);
+    }
+    
+    public List<Movie> getMoviesByName(String name) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Movie> tq = em.createNamedQuery("Movie.getByName", Movie.class);
+        tq.setParameter("name", "%" + name + "%");
+        return tq.getResultList();
     }
 
 }

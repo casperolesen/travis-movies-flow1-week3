@@ -17,6 +17,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -127,16 +128,41 @@ public class MovieResourceTest {
     
     }
     
+    @Test
+    public void testGetAllMoviesV2() throws Exception {
+        Movie[] movies = given()
+                .contentType("application/json")
+                .get("/movie/all")
+                .then()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .extract()
+                .as(Movie[].class);
+        
+        assertThat(movies[0].getActors()[0], containsString("Ford"));
+    }
+    
+    @Test
+    public void testGetAllMoviesV3() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("movie/all").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("actors[1]", hasItem("Harrison Ford"));
+    }
+    
 //    @Test
-//    public void testGetAllMovies() throws Exception {
-//        Movie[] movies = given()
+//    public void testGetMoviesByName() throws Exception {
+//        given()
 //                .contentType("application/json")
-//                .get("/movie/all")
-//                .then()
+//                .get("movie/name/jones").then()
+//                .assertThat()
 //                .statusCode(HttpStatus.OK_200.getStatusCode())
-//                .extract()
-//                .as(Movie[].class);
+//                .body("size()", is(2));
+//    }
+//    
+//    @Test
+//    public void testGetMovieById() throws Exception {
 //        
-//        assertThat(movies[0].getActors()[1], containsString("Karen"));
 //    }
 }

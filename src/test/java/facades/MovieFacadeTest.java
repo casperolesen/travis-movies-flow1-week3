@@ -113,5 +113,10 @@ public class MovieFacadeTest {
         Movie movie = facade.getMovieById(m2.getId());
         assertThat(movie.getActors(), arrayContaining("Harrison Ford", "Kate Capshaw", "Jonathan Ke Quan"));
     }
+    
+    @Test
+    public void testGetMoviesByName() {
+        assertEquals(2, facade.getMoviesByName("jones").size(), "Expects two movies with name %jones%");
+    }
 
 }
