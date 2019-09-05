@@ -11,8 +11,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
+import static org.glassfish.grizzly.http.util.MimeType.get;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.AfterAll;
@@ -89,7 +92,7 @@ public class MovieResourceTest {
     @Test
     public void testServerIsUp() {
         System.out.println("Testing is server UP");
-        given().when().get("/xxx").then().statusCode(200);
+        given().when().get("/movie").then().statusCode(200);
     }
    
     //This test assumes the database contains two rows
@@ -97,7 +100,7 @@ public class MovieResourceTest {
     public void testDummyMsg() throws Exception {
         given()
         .contentType("application/json")
-        .get("/xxx/").then()
+        .get("/movie/").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("msg", equalTo("Hello World"));   
@@ -107,7 +110,7 @@ public class MovieResourceTest {
     public void testCount() throws Exception {
         given()
         .contentType("application/json")
-        .get("/xxx/count").then()
+        .get("/movie/count").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("count", equalTo(3));   
@@ -117,10 +120,23 @@ public class MovieResourceTest {
     public void testGetAllMovies() throws Exception {
         given()
         .contentType("application/json")
-        .get("/xxx/all").then()
+        .get("/movie/all").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("size()", is(3));
     
     }
+    
+//    @Test
+//    public void testGetAllMovies() throws Exception {
+//        Movie[] movies = given()
+//                .contentType("application/json")
+//                .get("/movie/all")
+//                .then()
+//                .statusCode(HttpStatus.OK_200.getStatusCode())
+//                .extract()
+//                .as(Movie[].class);
+//        
+//        assertThat(movies[0].getActors()[1], containsString("Karen"));
+//    }
 }
