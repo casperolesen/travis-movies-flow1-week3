@@ -151,18 +151,23 @@ public class MovieResourceTest {
         .body("actors[1]", hasItem("Harrison Ford"));
     }
     
-//    @Test
-//    public void testGetMoviesByName() throws Exception {
-//        given()
-//                .contentType("application/json")
-//                .get("movie/name/jones").then()
-//                .assertThat()
-//                .statusCode(HttpStatus.OK_200.getStatusCode())
-//                .body("size()", is(2));
-//    }
-//    
-//    @Test
-//    public void testGetMovieById() throws Exception {
-//        
-//    }
+    @Test
+    public void testGetMoviesByName() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("movie/name/jones").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("size()", is(2));
+    }
+    
+    @Test
+    public void testGetMovieById() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("movie/" + m1.getId()).then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("name", equalTo("Raiders of the Lost Ark"));
+    }
 }

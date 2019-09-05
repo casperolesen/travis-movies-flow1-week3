@@ -50,7 +50,7 @@ public class MovieResource {
     }
     
     @GET
-    @Path("/name{name}")
+    @Path("/name/{name}")
     @Produces({MediaType.APPLICATION_JSON})
     public String getMoviesByName(@PathParam("name") String name) {
         return GSON.toJson(FACADE.getMoviesByName(name));
