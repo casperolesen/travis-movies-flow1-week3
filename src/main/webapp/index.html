@@ -40,6 +40,26 @@
             
             function fetchAddMovie() {
                 event.preventDefault();
+                var url = "https://lecasper.dk/travis-movies-flow1-week3/api/movie";
+                var yearInput, nameInput, actorsInput;
+                yearInput = document.getElementById("year").value;
+                nameInput = document.getElementById("name").value;
+                actorsInput = document.getElementById("actors").value.replace(/\s/g, "");
+                var actorsArr = actorsInput.split(',');
+                var movie = {year: yearInput, name: nameInput, actors: actorsArr};
+                //console.log(movie);
+                
+                fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify(movie),
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': url
+                    }
+                })
+                .then(res => res.json())
+                .then(response => console.log('Success: ', JSON.stringify(response)))
+                .catch(error => console.error('Error: ', error));
             }
         </script>
     </body>

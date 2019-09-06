@@ -65,8 +65,9 @@ public class MovieResource {
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Movie entity) {
-        throw new UnsupportedOperationException();
+    public String create(Movie movie) {
+        Movie result = FACADE.createMovie(movie);
+        return GSON.toJson(result);
     }
     
     @PUT

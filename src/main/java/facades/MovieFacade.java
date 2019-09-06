@@ -65,5 +65,19 @@ public class MovieFacade {
         tq.setParameter("name", "%" + name + "%");
         return tq.getResultList();
     }
+    
+    public Movie createMovie(Movie movie) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(movie);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return movie;
+    }
 
 }
