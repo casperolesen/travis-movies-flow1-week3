@@ -14,6 +14,12 @@
             <button type="submit" id="btnGetMovie">Get Movie</button>
         </form>
         
+        <div id="divSingleMovie">
+            <p id="displayName"></p>
+            <p id="displayYear"></p>
+            <p id="displayActors"></p>
+        </div>
+        
         <h4>Add Movie</h4>
         <form action="#" id="formAddMovie" onsubmit="fetchAddMovie();">
             Name: <input type="text" id="name">
@@ -34,6 +40,9 @@
                 fetch("https://lecasper.dk/travis-movies-flow1-week3/api/movie/" + id)
                 .then(res => res.json())
                 .then(data => {
+                    document.getElementById("displayName").innerHTML = "Name: " + data.name;
+                    document.getElementById("displayYear").innerHTML = "Year: " + data.year;
+                    document.getElementById("displayActors").innerHTML = "Name: " + data.actors.join();
                     console.log(data);
                 });
             }
