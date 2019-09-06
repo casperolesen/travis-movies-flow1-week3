@@ -10,8 +10,16 @@
         
         <h4>Get Movie</h4>
         <form action="#" id="formGetMovie" onsubmit="fetchGetMovie();">
-            <input type="text" id="id">
-            <button type="submit" id="btnGetMovie">Get Movie</button>
+            <input type="text" id="id" placeholder="1">
+            <button type="submit" id="btnGetMovie">Get Movie by ID</button>
+        </form>
+        
+        <h4>Add Movie</h4>
+        <form action="#" id="formAddMovie" onsubmit="fetchAddMovie();">
+            Name: <input type="text" id="name" placeholder="En Film">
+            Year: <input type="text" id="year" placeholder="1999">
+            Actors: <input type="text" id="actors" placeholder="Actor1, Actor2, Actor3">
+            <button type="submit" id="btnAddMovie">Add Movie</button>
         </form>
         
         <div id="divSingleMovie">
@@ -20,14 +28,6 @@
             <p id="displayYear"></p>
             <p id="displayActors"></p>
         </div>
-        
-        <h4>Add Movie</h4>
-        <form action="#" id="formAddMovie" onsubmit="fetchAddMovie();">
-            Name: <input type="text" id="name">
-            Year: <input type="text" id="year">
-            Actors: <input type="text" id="actors">
-            <button type="submit" id="btnAddMovie">Add Movie</button>
-        </form>
         
         <h4>Show All Movies</h4>
         <button id="btnGetAllMovies">Show All Movies</button>
@@ -45,7 +45,7 @@
                             for (i = 0; i < data.length; i++) {
                                 console.log(data[i]);
                                 var li = document.createElement("li");
-                                li.appendChild(document.createTextNode(item.name));
+                                li.appendChild(document.createTextNode(data[i].name));
                                 document.getElementById("ulAllMovies").appendChild(li);
                             }
                 });
@@ -84,8 +84,8 @@
                     }
                 })
                 .then(res => res.json())
-                .then(response => console.log('Success: ', JSON.stringify(response)))
-                .catch(error => console.error('Error: ', error));
+                .then(response => alert('Success: ', JSON.stringify(response)))
+                .catch(error => alert('Error: ', error));
             }
         </script>
     </body>
