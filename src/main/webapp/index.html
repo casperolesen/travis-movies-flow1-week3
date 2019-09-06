@@ -7,5 +7,40 @@
     <body>
         <h1>Change or remove this page</h1>
         <h3>Deployed by Travis</h3>
+        
+        <h4>Get Movie</h4>
+        <form action="#" id="formGetMovie" onsubmit="fetchGetMovie();">
+            <input type="text" id="id">
+            <button type="submit" id="btnGetMovie">Get Movie</button>
+        </form>
+        
+        <h4>Add Movie</h4>
+        <form action="#" id="formAddMovie" onsubmit="fetchAddMovie();">
+            Name: <input type="text" id="name">
+            Year: <input type="text" id="year">
+            Actors: <input type="text" id="actors">
+            <button type="submit" id="btnAddMovie">Add Movie</button>
+        </form>
+        
+        <h4>Show All Movies</h4>
+        <form>
+            
+        </form>
+        
+        <script>
+            function fetchGetMovie() {
+                event.preventDefault();
+                var id = document.getElementById("id").value;
+                fetch("https://lecasper.dk/travis-movies-flow1-week3/api/movie/" + id)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                });
+            }
+            
+            function fetchAddMovie() {
+                event.preventDefault();
+            }
+        </script>
     </body>
 </html>
