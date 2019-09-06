@@ -38,8 +38,36 @@
         </div>
 
         <script>
-            // get all movies
-            document.getElementById("btnGetAllMovies").addEventListener("click", function () {
+
+            document.getElementById("btnGetAllMovies").addEventListener("click", getAllMovies);
+
+            function fetchGetMovie() {
+                event.preventDefault();
+                var id = document.getElementById("id").value;
+
+                if (id === "") {
+                    alert("Please type in an ID");
+                } else {
+                    fetch("https://lecasper.dk/travis-movies-flow1-week3/api/movie/" + id)
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data === null) {
+                                    alert("No movie by that id");
+                                } else {
+                                    document.getElementById("displayId").innerHTML = "Id: " + data.id;
+                                    document.getElementById("displayName").innerHTML = "Name: " + data.name;
+                                    document.getElementById("displayYear").innerHTML = "Year: " + data.year;
+                                    document.getElementById("displayActors").innerHTML = "Name: " + data.actors.join();
+                                    console.log(data);
+                                }
+
+                            });
+                }
+
+
+            }
+
+            function getAllMovies() {
                 fetch("https://lecasper.dk/travis-movies-flow1-week3/api/movie/all")
                         .then(res => res.json())
                         .then(data => {
@@ -52,29 +80,6 @@
                                 li.appendChild(document.createTextNode(m.id + " " + m.name + " " + m.year + " " + m.actors));
                                 ul.appendChild(li);
                             }
-                        });
-            });
-            function fetchGetMovie() {
-                event.preventDefault();
-                var id = document.getElementById("id").value;
-                
-                if (id === "") {
-                    alert("Please type in an ID");
-                }
-                
-                fetch("https://lecasper.dk/travis-movies-flow1-week3/api/movie/" + id)
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data === null) {
-                                alert("No movie by that id");
-                            } else {
-                                document.getElementById("displayId").innerHTML = "Id: " + data.id;
-                                document.getElementById("displayName").innerHTML = "Name: " + data.name;
-                                document.getElementById("displayYear").innerHTML = "Year: " + data.year;
-                                document.getElementById("displayActors").innerHTML = "Name: " + data.actors.join();
-                                console.log(data);
-                            }
-
                         });
             }
 
