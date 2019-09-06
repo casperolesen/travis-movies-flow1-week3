@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <h1>Change or remove this page</h1>
+        <h1>Caspers Movie Page</h1>
         <h3>Deployed by Travis</h3>
         
         <h4>Get Movie</h4>
@@ -42,7 +42,12 @@
                 fetch("https://lecasper.dk/travis-movies-flow1-week3/api/movie/all")
                         .then(res => res.json())
                         .then(data => {
-                            data.forEach(console.log(data));
+                            data.forEach(item => function() {
+                                console.log(item);
+                                var li = document.createElement("li");
+                                li.appendChild(document.createTextNode(item.name));
+                                document.getElementById("ulAllMovies").appendChild(li);
+                            });
                 });
             });
             function fetchGetMovie() {
