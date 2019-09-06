@@ -38,15 +38,19 @@
         </div>
         
         <script>
+            // get all movies
             document.getElementById("btnGetAllMovies").addEventListener("click", function() {
                 fetch("https://lecasper.dk/travis-movies-flow1-week3/api/movie/all")
                         .then(res => res.json())
                         .then(data => {
+                            var ul = document.getElementById("ulAllMovies");
+                            ul.innerHtml = "";
                             for (i = 0; i < data.length; i++) {
                                 console.log(data[i]);
+                                var m = data[i];
                                 var li = document.createElement("li");
-                                li.appendChild(document.createTextNode(data[i].name));
-                                document.getElementById("ulAllMovies").appendChild(li);
+                                li.appendChild(document.createTextNode(m.id + " " + m.name + " " + m.year + " " + m.actors));
+                                ul.appendChild(li);
                             }
                 });
             });
@@ -84,8 +88,8 @@
                     }
                 })
                 .then(res => res.json())
-                .then(response => alert('Success: ', JSON.stringify(response)))
-                .catch(error => alert('Error: ', error));
+                .then(response => alert('Success: ' + JSON.stringify(response)))
+                .catch(error => alert('Error: ' + error));
             }
         </script>
     </body>
